@@ -1,0 +1,7 @@
+sincronizar
+hilos
+planificador
+fork
+unix
+windows
+pausar
