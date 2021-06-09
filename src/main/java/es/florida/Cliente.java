@@ -1,5 +1,8 @@
 package es.florida;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -29,12 +32,15 @@ public class Cliente {
 
 
         while (true){
+            BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+            textEncryptor.setPassword("miCodigoDeBloqueo");
             //System.out.println("dentro del while infinito");
             line = reader.readLine();
             System.out.println("respuesta servidor: " + line);
             System.out.println("Introduce la orden del sistema ");
             comando = consola.next();
-            printer.println(comando);
+            String encryptedText = textEncryptor.encrypt(comando);
+            printer.println(encryptedText);
             printer.flush();
             if (comando.equals("adios")) break;
 

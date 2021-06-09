@@ -1,5 +1,7 @@
 package es.florida;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -67,8 +69,12 @@ public class Servidor {
                 //System.out.println(block);
 
                 while ((line = reader.readLine()) !=null){
+                    BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+                    textEncryptor.setPassword("miCodigoDeBloqueo");
+                    String desencriptado = textEncryptor.decrypt(line);
+                    System.out.println("desencriptado: " + textEncryptor.decrypt(line));
 
-                    String[] separado = line.split(";");
+                    String[] separado = desencriptado.split(";");
                     String comando = separado[0];
 
                     System.out.println("el comando introducido es " + comando);
